@@ -1,6 +1,9 @@
 package bhouse.travellist_starterproject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.util.Log;
@@ -43,6 +46,9 @@ public class TravelListAdaptor extends RecyclerView.Adapter {
             placeNameHolder  = (LinearLayout) itemView.findViewById(R.id.placeNameHolder);
             placeImage = (ImageView) itemView.findViewById(R.id.placeImage);
             itemView.setOnClickListener(this);
+
+
+
         }
 
         @Override
@@ -73,11 +79,20 @@ public class TravelListAdaptor extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final MyViewHolder myViewHolder = (MyViewHolder) holder;
         Place place = placeDataArrayList.get(position);
         myViewHolder.placeName.setText(place.name);
         Picasso.with(context).load(place.getImageResourceId(context)).into(myViewHolder.placeImage);
+
+        Bitmap photo = BitmapFactory.decodeResource(context.getResources(), place.getImageResourceId(context));
+
+        Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
+            public void onGenerated(Palette palette) {
+                int bgColor = palette.getMutedColor(context.getResources().getColor(android.R.color.black));
+                myViewHolder.placeNameHolder.setBackgroundColor(bgColor);
+            }
+        });
     }
 
     @Override

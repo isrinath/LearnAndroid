@@ -79,10 +79,12 @@ public class MainActivity extends Activity {
       item.setIcon(R.drawable.ic_action_list);
       item.setTitle("Show as list");
       isListView = false;
+      staggeredGridLayoutManager.setSpanCount(2);
     } else {
       item.setIcon(R.drawable.ic_action_grid);
       item.setTitle("Show as grid");
       isListView = true;
+         staggeredGridLayoutManager.setSpanCount(1);
     }
   }
 }
