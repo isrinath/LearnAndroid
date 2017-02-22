@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.R.attr.data;
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 
 public class MainActivity extends Activity {
@@ -29,7 +35,18 @@ public class MainActivity extends Activity {
     cardRecyclerView.setLayoutManager(staggeredGridLayoutManager);
     placeArrayList = PlaceData.placeList();
     TravelListAdaptor travelListAdaptor = new TravelListAdaptor(this,placeArrayList);
+    travelListAdaptor.setItemClickListenerRecycler(new ItemClickListenerRecycler(){
+
+      @Override
+      public void onClickRecycle(View view, int position) {
+        Log.d("SRINATH","onClickRecycle");
+        String selectedPlace = placeArrayList.get(position).name;
+          Toast.makeText(getApplicationContext(), "You selected --->"+selectedPlace, Toast.LENGTH_LONG).show();
+
+      }
+    });
     cardRecyclerView.setAdapter(travelListAdaptor);
+
     isListView = true;
   }
 

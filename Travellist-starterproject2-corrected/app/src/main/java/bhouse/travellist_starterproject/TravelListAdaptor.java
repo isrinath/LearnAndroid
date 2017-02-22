@@ -3,6 +3,7 @@ package bhouse.travellist_starterproject;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,9 @@ public class TravelListAdaptor extends RecyclerView.Adapter {
     private Context context;
     private View view;
     private ArrayList<Place> placeDataArrayList;
+    private ItemClickListenerRecycler itemClickListenerRecycler;
 
-    public class  MyViewHolder extends RecyclerView.ViewHolder{
+    public class  MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private LinearLayout mainHolder;
         private  LinearLayout placeNameHolder;
         private ImageView placeImage;
@@ -40,9 +42,23 @@ public class TravelListAdaptor extends RecyclerView.Adapter {
             placeName = (TextView) itemView.findViewById(R.id.placeName);
             placeNameHolder  = (LinearLayout) itemView.findViewById(R.id.placeNameHolder);
             placeImage = (ImageView) itemView.findViewById(R.id.placeImage);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("SRINATH","onClickRecycle");
+            Log.d("SRINATH",itemClickListenerRecycler.toString());
+            if(itemClickListenerRecycler!=null){
+                Log.d("SRINATH",itemClickListenerRecycler.toString()+" is not null");
+                itemClickListenerRecycler.onClickRecycle(view,getPosition());
+            }
         }
     }
 
+    public void setItemClickListenerRecycler(ItemClickListenerRecycler itemClickListenerRecycler){
+        this.itemClickListenerRecycler = itemClickListenerRecycler;
+    }
 
     public TravelListAdaptor(Context context, ArrayList<Place> placeDataArrayList) {
         this.context = context;
