@@ -23,12 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-     //   detectScreenShotService(this);
+        detectScreenShotService(this);
 
-        context = this;
-        View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-        Bitmap bitmap= ScreenShotUtil.getScreenShot(rootView);
-        ScreenShotUtil.store(bitmap,"test");
+
     }
 
     public void detectScreenShotService(final Activity activity) {
